@@ -10,7 +10,7 @@ function ForecastDivs({data}) {
     <div className='w-full flex  justify-around items-center '>
       <div><h1>{date}</h1></div>
       <div><img src={icon} alt="weather condition Image" /></div>
-      <div>{avgtemp_c}</div>
+      <div>{avgtemp_c} °C</div>
     </div>
   )
 }

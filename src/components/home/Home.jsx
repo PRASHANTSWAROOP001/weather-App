@@ -7,6 +7,7 @@ import TodaysWeather from '../todaysWeather/TodaysWeather';
 import LeftBottom from '../LeftBottom/LeftBottom';
 
 
+
 function Home() {
     const [city,setCity] = useState(" ") // stores the city and sets the city
     const [currWeather, setWeather] = useState(null) // used to fetch the data 
@@ -15,7 +16,8 @@ function Home() {
     const [sixHourData,setSixHourData] = useState([])
     const [currFormatData,setCurrFormatData] = useState({}) 
 
-    const key = "94e90c2b14614d86be7125225241104"
+    const key =  import.meta.env.VITE_API_KEY;
+
 
     const getCurrentWeather =(city) =>{
       fetch(`http://api.weatherapi.com/v1/current.json?key=${key}&q=${city}&aqi=no`)
@@ -26,6 +28,7 @@ function Home() {
       })
 
       getForecast(city,7);
+    
 
     }
 
@@ -39,12 +42,13 @@ function Home() {
 
 
     function getTodaysForecast(){
+
       const today = new Date()
       const formatDateNow = format(today,"yyyy-MM-dd HH:mm")
       const sixHour = new Date(today.getTime()+6*60*60*1000)
       const formatData6 = format(sixHour,"yyyy-MM-dd HH:mm")
       let sixDataPoints =[]
-      if(forecast != null){
+      if(forecast != null && forecast.forecast && forecast.forecast.forecastday){
         // const forecastData = forecast.forecast.forecastday[0]
 
          sixDataPoints = forecast.forecast.forecastday[0].hour.filter((element)=>{
@@ -58,7 +62,7 @@ function Home() {
 
 
     const addWeatherData = ()=>{
-      if(forecast != null){
+      if(forecast != null && !currWeather.error){
         for(let i=1; i<=6; i++){
            const {
             date,
@@ -91,7 +95,7 @@ function Home() {
     }
 
     const formatCurrData = ()=>{
-      if(currWeather != null){
+      if(currWeather != null && !currWeather.error){
         let data;
         const{
           
@@ -146,6 +150,7 @@ function Home() {
     }
 
     if(forecast != null){
+      console.log(forecast);
       console.log(forecastPoints);
       console.log("below is 6 hours Data");
       console.log(sixHourData);
@@ -171,12 +176,18 @@ function Home() {
            </div>
         </div>
 
-        {forecast != null ?(
+        {forecast != null && currWeather && currWeather.error && (
+        <div className="text-center text-2xl py-2 text-red-500">
+          <h1 >Error: {currWeather.error.message}</h1>
+        </div>
+      )}
+
+        {forecast != null && !currWeather.error ?(
               <div className="flex">
               <div className="w-1/4 h-svh flex flex-col items-center justify-around ">
                 { currFormatData != null &&(<LeftCard value={currFormatData}></LeftCard>)}
                 <div>
-                  <h1 className="text-2xl text-left">5 days forecast</h1>
+                  <h1 className="text-xl text-left">7 days forecast</h1>
                 </div>
                 { forecastPoints !=  null && (<LeftBottom value={forecastPoints}/>)}
               </div>
@@ -202,9 +213,6 @@ function Home() {
               </div>
             </div>
         ):" "}
-
-
-  
     </div>
   );
 }

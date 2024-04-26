@@ -20,13 +20,13 @@ function LeftCard({value}) {
   
 
   return (
-    <div className=' w-72  h-96  rounded-xl  bg-gray-800 '>
+    <div className=' w-72  h-80  rounded-xl  bg-gray-800 '>
       <div className='mx-2 my-2 flex items-center  '>
         <h1 className=' text-xl px-2'>Now</h1>
         <FaArrowCircleDown className='w-6 h-5'/>
       </div>
 
-      <div className='w-full h-3/5  border-b-2 flex '>
+      <div className='w-full h-1/2  border-b-2 flex '>
         <div className='w-1/2 h-full flex justify-center items-center'>
           <h1 className='text-5xl px-2'>{temp_c}°C</h1>
         </div>
