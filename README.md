@@ -3,6 +3,9 @@
 ## Introduction
 This Weather App provides users with a 7-day forecast and the next 6 hours forecast of the current day. It's built with React JS and utilizes Tailwind CSS for styling and date-fns for date operations.
 
+![Weather App Screenshot](https://github.com/PRASHANTSWAROOP001/weather-App/blob/main/Screenshot%202024-04-28%20013624.png)
+
+
 ## Features
 - **7-Day Forecast**: Get a weekly weather outlook.
 - **6-Hour Forecast**: Stay updated with the weather for the next 6 hours.
